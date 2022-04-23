@@ -9,16 +9,13 @@
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        //using hashing
-        vector<ListNode*> v;
-        v.push_back(head);
-        if(!head) return false;
-        while(1){
-            if(head->next==NULL) return false;
-            head=head->next;
-            vector<ListNode*>::iterator it=find(v.begin(), v.end(), head);
-            if(it!=v.end()) return true;
-            else v.push_back(head);
+        if(!(head) || !(head->next)) return false;
+        ListNode *slow= head;
+        ListNode *fast= head;
+        while(fast->next && fast->next->next){
+            fast= fast->next->next;
+            slow= slow->next;
+            if(fast== slow) return true;
         }
         return false;
     }
